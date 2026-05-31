@@ -104,4 +104,6 @@ def comment():
 # Future improvement: Add CSRF protection with Flask-WTF
 
 if __name__ == '__main__':
-    app.run(debug=app.debug, host='0.0.0.0')
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=app.debug, host='0.0.0.0', port=port)

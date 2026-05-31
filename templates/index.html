@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mamounia - Lebanese Restaurant</title>
+    <meta name="description" content="Authentic Lebanese cuisine since 1997. Fresh ingredients, traditional recipes, and a warm atmosphere await you.">
+    <meta property="og:title" content="Mamounia Lebanese Restaurant">
+    <meta property="og:description" content="Experience the taste of Lebanon with every bite. Fresh ingredients, traditional recipes, and a warm atmosphere await you.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/hero.jpg', _external=True) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <!-- Inline style for hero background only (Jinja var required) -->
+    <style>
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('{{ url_for('static', filename='images/hero.jpg') }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav aria-label="Main navigation">
+        <div class="container nav-container">
+            <a href="#home" class="logo">Mamounia</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#reserve">Reserve</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages container">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}" role="alert">
+                        {{ message }}
+                        <button class="flash-close" aria-label="Close">&times;</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <p class="hero-subtitle">Authentic Lebanese Cuisine Since 1997</p>
+            <h1>Mamounia</h1>
+            <p class="hero-description">Experience the taste of Lebanon with every bite. Fresh ingredients, traditional recipes, and a warm atmosphere await you.</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">View Menu</a>
+                <a href="#reserve" class="btn btn-secondary">Reserve a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <p class="section-subtitle">Crafted with tradition, served with passion</p>
+
+            <div class="menu-tabs" aria-label="Filter menu categories">
+                <button class="tab active" aria-pressed="true" data-filter="all">All</button>
+                <button class="tab" aria-pressed="false" data-filter="mezza">Mezza</button>
+                <button class="tab" aria-pressed="false" data-filter="grills">Grills</button>
+                <button class="tab" aria-pressed="false" data-filter="desserts">Desserts</button>
+            </div>
+
+            <div class="menu-grid">
+                <!-- Menu items - images are lazy loaded -->
+                <div class="menu-item" data-category="mezza">
+                    <div class="menu-item-image">
+                        <img src="{{ url_for('static', filename='images/hummus.jpeg') }}" alt="Hummus" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Hummus Beiruti</h3>
+                        <p>Creamy chickpeas, tahini, lemon, garlic, topped with olive oil & parsley</p>
+                        <span class="price">$12</span>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="mezza">
+                    <div class="menu-item-image">
+                        <img src="{{ url_for('static', filename='images/tabbouleh.png') }}" alt="Tabbouleh" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Tabbouleh</h3>
+                        <p>Fresh parsley, bulgur, tomatoes, mint, lemon dressing</p>
+                        <span class="price">$10</span>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="mezza">
+                    <div class="menu-item-image">
+                        <img src="{{ url_for('static', filename='images/kibbeh.jpeg') }}" alt="Kibbeh" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Kibbeh</h3>
+                        <p>Fried cracked wheat shells stuffed with spiced minced lamb & pine nuts</p>
+                        <span class="price">$14</span>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="grills">
+                    <div class="menu-item-image">
+                        <img src="{{ url_for('static', filename='images/shish_tawook.jpeg') }}" alt="Shish Tawook" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Shish Tawook</h3>
+                        <p>Marinated chicken skewers, garlic sauce, grilled vegetables</p>
+                        <span class="price">$22</span>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="grills">
+                    <div class="menu-item-image">
+                        <img src="{{ url_for('static', filename='images/mixed_grill.jpeg') }}" alt="Mixed Grill" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Mixed Grill</h3>
+                        <p>Lamb chops, kofta, chicken tawook, served with rice & grilled tomatoes</p>
+                        <span class="price">$32</span>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-image">
+                        <img src="{{ url_for('static', filename='images/baklava.jpeg') }}" alt="Baklava" loading="lazy" width="400" height="300">
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Baklava</h3>
+                        <p>Layers of filo pastry, chopped nuts, sweet honey syrup</p>
+                        <span class="price">$9</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-image-wrapper">
+                        <img src="{{ url_for('static', filename='images/chef.jpg') }}" alt="Restaurant Interior" loading="lazy" width="600" height="750">
+                        <div class="about-image-pattern"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title about-title">Our Story</h2>
+                    <p class="about-subtitle">A legacy of Lebanese hospitality since 1997</p>
+                    <p class="about-description">
+                        Mamounia was born from a deep passion for authentic Lebanese cuisine and a desire 
+                        to share the rich culinary traditions of Beirut with the world. Every dish is a 
+                        celebration of fresh ingredients, aromatic spices, and time‑honored family recipes 
+                        passed down through generations.
+                    </p>
+                    <p class="about-description">
+                        Our chefs hand‑pick the finest produce each morning, preparing everything from 
+                        silky hummus to tender grilled meats with the same care and attention you’d find 
+                        in a Lebanese grandmother’s kitchen.
+                    </p>
+                    <div class="about-signature">
+                        <span class="signature-name">Chef Elias</span>
+                        <span class="signature-title">Head Chef & Founder</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Feedback Section -->
+    <section id="reserve" class="reserve-section">
+        <div class="reserve-overlay"></div>
+        <div class="container">
+            <!-- Contact Info -->
+            <div class="contact-info-row">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="contact-text">
+                        <span class="contact-label">Visit Us</span>
+                        <address class="contact-value">
+                            123 Lebanese Street<br>Beirut District, Downtown
+                        </address>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <span class="contact-label">Call Us</span>
+                        <a href="tel:+9611234567" class="contact-value">+961 1 234 567</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Card -->
+            <div class="feedback-card">
+                <h2 class="section-title">Leave a Comment</h2>
+                <p class="section-subtitle">We’d love to hear from you</p>
+
+                <form action="{{ url_for('comment') }}" method="POST" class="feedback-form">
+                    {{ csrf_token() }}
+                    <div class="form-group floating-label">
+                        <input type="text" id="name" name="name" required placeholder=" ">
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="message-label">Your Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tell us about your experience..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary feedback-btn">Send Comment</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>

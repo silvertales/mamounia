@@ -590,7 +590,7 @@ a.contact-value:hover {
 
 .floating-label label {
     position: absolute;
-    right: 16px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--color-text-muted);
@@ -603,7 +603,7 @@ a.contact-value:hover {
 .floating-label input:focus + label,
 .floating-label input:not(:placeholder-shown) + label {
     top: 0;
-    right: 12px;
+    left: 12px;
     font-size: 0.8rem;
     color: var(--color-gold);
     background: #141414;

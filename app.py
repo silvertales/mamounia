@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
-app.secret_key = 'ladecima11'
+app.secret_key = 'ladecima11'   # needed for flash messages
 
 @app.route('/')
 def home():
@@ -9,7 +9,6 @@ def home():
 
 @app.route('/comment', methods=['POST'])
 def comment():
-    # Just a demo – always shows success, doesn't save anything
     flash('Thank you for your comment! We appreciate your feedback.', 'success')
     return redirect(url_for('home', _anchor='reserve'))
 

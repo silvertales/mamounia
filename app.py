@@ -9,12 +9,12 @@ app = Flask(__name__)
 csrf = CSRFProtect(app)
  
 # SECRET_KEY must be set in Vercel environment variables — no fallback for security
-app.secret_key = os.environ['SECRET_KEY']
+app.secret_key = os.environ['SECRET_KEY', 'babayaga711']
 app.debug = os.environ.get('FLASK_DEBUG', '0') == '1'
  
 # ---------- Database helpers ----------
 # DATABASE_URL is set in Vercel environment variables (your Neon connection string)
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['DATABASE_URL', 'postgresql://neondb_owner:npg_dDRh6z4kGCso@ep-super-feather-a2zi96j2-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require']
  
 def get_db():
     """Return a new PostgreSQL database connection."""

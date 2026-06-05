@@ -217,6 +217,7 @@
                 <p class="section-subtitle">We’d love to hear from you</p>
 
                 <form action="{{ url_for('comment') }}" method="POST" class="feedback-form">
+                    {{ csrf_token() }}
                     <div class="form-group floating-label">
                         <input type="text" id="name" name="name" required placeholder=" ">
                         <label for="name">Your Name</label>

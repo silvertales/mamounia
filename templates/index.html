@@ -85,7 +85,6 @@
             </div>
 
             <div class="menu-grid">
-                <!-- Menu items - images are lazy loaded -->
                 <div class="menu-item" data-category="mezza">
                     <div class="menu-item-image">
                         <img src="{{ url_for('static', filename='images/hummus.jpeg') }}" alt="Hummus" loading="lazy" width="400" height="300">
@@ -171,8 +170,8 @@
                     </p>
                     <p class="about-description">
                         Our chefs hand‑pick the finest produce each morning, preparing everything from 
-                        silky hummus to tender grilled meats with the same care and attention you’d find 
-                        in a Lebanese grandmother’s kitchen.
+                        silky hummus to tender grilled meats with the same care and attention you'd find 
+                        in a Lebanese grandmother's kitchen.
                     </p>
                     <div class="about-signature">
                         <span class="signature-name">Chef Elias</span>
@@ -214,17 +213,19 @@
             <!-- Feedback Card -->
             <div class="feedback-card">
                 <h2 class="section-title">Leave a Comment</h2>
-                <p class="section-subtitle">We’d love to hear from you</p>
+                <p class="section-subtitle">We'd love to hear from you</p>
 
                 <form action="{{ url_for('comment') }}" method="POST" class="feedback-form">
-                    {{ csrf_token() }}
+                    <!-- CSRF protection token — required by Flask-WTF -->
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
                     <div class="form-group floating-label">
-                        <input type="text" id="name" name="name" required placeholder=" ">
+                        <input type="text" id="name" name="name" required placeholder=" " maxlength="100">
                         <label for="name">Your Name</label>
                     </div>
                     <div class="form-group">
                         <label for="message" class="message-label">Your Message</label>
-                        <textarea id="message" name="message" rows="5" required placeholder="Tell us about your experience..."></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tell us about your experience..." maxlength="1000"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary feedback-btn">Send Comment</button>
                 </form>
@@ -232,7 +233,6 @@
         </div>
     </section>
 
-    <!-- Scripts -->
     <!-- Back to top button -->
     <button id="back-to-top" aria-label="Back to top" title="Back to top">
         <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
